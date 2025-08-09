@@ -1,0 +1,392 @@
+/* Basic Reset and App Theme */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #121212;
+    color: white;
+}
+
+.view {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- ANIMATIONS & EFFECTS for HOME PAGE --- */
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#home-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(-45deg, #d9534f, #2a2a2a, #121212, #5bc0de);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+.home-content {
+    max-width: 600px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.home-content > * {
+    opacity: 0; /* Start hidden */
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.home-title { animation-delay: 0.2s; }
+.home-subtitle { animation-delay: 0.4s; }
+.home-description { animation-delay: 0.6s; }
+.home-button { animation-delay: 0.8s; }
+
+.home-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.home-subtitle {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+.home-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.home-button {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #d9534f;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.home-button:hover {
+    transform: scale(1.05);
+}
+
+.home-button::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 0);
+    left: var(--x, 0);
+    transform: translate(-50%, -50%);
+    width: 0px;
+    height: 0px;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.home-button:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* --- STYLES FOR SCANNER PAGE --- */
+.app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+}
+#camera-feed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.app-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px; z-index: 10; font-size: 18px; font-weight: 500; }
+.icon-btn { font-size: 22px; cursor: pointer; }
+.scanner-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 5; }
+.instruction-text { color: rgba(255, 255, 255, 0.9); text-align: center; margin-bottom: 20px; position: absolute; top: 25%; }
+.scan-frame { width: 80%; padding-bottom: 60%; max-width: 400px; border: 3px solid rgba(255, 255, 255, 0.7); border-radius: 20px; position: relative; }
+.app-footer { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+#challenge-btn { width: 70px; height: 70px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.2); border: 4px solid white; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: background-color 0.2s; }
+#challenge-btn:hover:not(:disabled) { background-color: rgba(255, 255, 255, 0.4); }
+#challenge-btn .fa-camera { font-size: 30px; color: white; }
+#challenge-btn:disabled { background-color: #555; cursor: not-allowed; }
+.status-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.7); padding: 20px 30px; border-radius: 10px; z-index: 20; text-align: center; }
+
+/* --- CORRECTED STYLES FOR POPUP MODAL --- */
+@keyframes modalGradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: linear-gradient(-45deg, #d9534f44, #2a2a2a44, #12121244, #5bc0de44);
+    background-size: 400% 400%;
+    animation: modalGradientAnimation 15s ease infinite;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content {
+    background-color: #fefefe;
+    color: #333;
+    margin: auto;
+    padding: 30px;
+    border: none;
+    border-radius: 15px;
+    width: 85%;
+    max-width: 550px;
+    text-align: center;
+    position: relative;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    animation: fadeInModal 0.3s ease-out forwards;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #d9534f;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px #eee;
+}
+
+.modal-content p {
+    margin-bottom: 15px;
+}
+
+.close-btn {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    opacity: 1;
+    color: #333;
+}
+
+.translate-button {
+    margin-top: 25px;
+    padding: 10px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #5bc0de;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.translate-button:hover {
+    background-color: #31b0d5;
+}
+
+.translated-text {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    font-style: italic;
+    color: #777;
+}
+.header-icons-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-icons-right .icon-btn {
+    margin-left: 24px;
+}
+/* ... all your other styles ... */
+
+/* --- STYLES FOR SCANNER PAGE --- */
+.app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+}
+#camera-feed { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    z-index: 1; 
+    transition: transform 0.5s ease; /* Smooth transition for the mirror effect */
+}
+
+/* NEW CLASS FOR MIRRORING THE DISPLAY */
+#camera-feed.mirrored {
+    transform: scaleX(-1);
+}
+
+.app-header { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px; 
+    z-index: 10; 
+    font-size: 18px; 
+    font-weight: 500; 
+}
+
+.icon-btn { 
+    font-size: 22px; 
+    cursor: pointer; 
+}
+
+/* UPDATED STYLE FOR HEADER ICONS */
+.header-icons-right {
+    display: flex;
+    align-items: center;
+}
+.header-icons-right .icon-btn {
+    margin-left: 20px;
+}
+
+/* ... the rest of your styles are the same ... */
+/* ... all previous styles ... */
+
+/* --- UPDATED STYLES FOR FOOTER & NEW SLIDER --- */
+.app-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.footer-item-left, .footer-item-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-item-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-item-right {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-item-right .fa-sun {
+    margin-right: 10px;
+}
+
+#challenge-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 4px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#brightness-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+#brightness-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#brightness-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* ... the rest of the styles remain the same ... */

@@ -1,0 +1,22 @@
+# Dependencies
+/backend/node_modules
+
+# Secret Files
+/backend/.env
+/backend/google-credentials.json
+
+# Temporary files created by the Python script
+/backend/temp_image_*.jpg
+
+# macOS files
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+
+# IDE/Editor config folders
+.vscode/
+.idea/
+
+# NPM log files
+npm-debug.log*
